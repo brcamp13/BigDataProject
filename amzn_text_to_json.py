@@ -28,7 +28,8 @@ def process_amzn_text_to_json():
             elif line_content[0] == "salesrank:":
                 product_record["salesrank"] = int(line_content[1])
             elif line_content[0] == "similar:":
-                # Process similar
+                similar = [int(line_content[i] for i in range(1, len(line_content)))]
+                product_record["similar"] = similar
             elif line_content[0] == "categories:":
                 # Process categories
             elif line_content[0] == "reviews:":
