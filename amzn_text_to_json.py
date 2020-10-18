@@ -38,9 +38,9 @@ def process_amzn_text_to_json():
             elif line_content[0] == "categories:":
                 categories = [[]]
                 for i in range(int(line_content[1])):
-                    print(line_content)
+                    # print(line_content)
                     debug_cat = next(f)
-                    print(debug_cat)
+                    # print(debug_cat)
                     category_content = debug_cat.split("|")
                     category_content.pop(0)
                     descriptions = []
