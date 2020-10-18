@@ -4,7 +4,10 @@ import json
 def process_amzn_text_to_json():
     review_data = [[()]]
     product_record = dict()
-
+    
+    # Erase contents of output file
+    open("output.json", "w").close()
+    
     with open("amazon-meta.txt") as f:
         for i in range(7):
             next(f)
@@ -35,7 +38,10 @@ def process_amzn_text_to_json():
             elif line_content[0] == "categories:":
                 categories = [[]]
                 for i in range(int(line_content[1])):
-                    category_content = next(f).split("|")
+                    print(line_content)
+                    debug_cat = next(f)
+                    print(debug_cat)
+                    category_content = debug_cat.split("|")
                     category_content.pop(0)
                     descriptions = []
                     for d in category_content:
@@ -46,13 +52,28 @@ def process_amzn_text_to_json():
                         descriptions.append(description)
                     categories.append(descriptions)
                 product_record["categories"] = categories
-                # product_json = json.dumps(product_record) #Dictionary to JSON
-                # print(product_json) #Print JSON
             elif line_content[0] == "reviews:":
-                # Process reviews
+                #print(line_content)
+                reviews = dict()
+                reviews["total"] = line_content[2]
+                reviews["downloaded"] = line_content[4]
+                reviews["avg rating"] = line_content[7]
+                review_list = []
+                for i in range(int(line_content[4])):
+                    review_content = next(f).split()
+                    #print(review_content)
+                    review = dict()
+                    review["date"] = review_content[0]
+                    review["customer"] = review_content[2]
+                    review["rating"] = review_content[4]
+                    review["votes"] = review_content[6]
+                    review["helpful"] = review_content[8]
+                    review_list.append(review)
+                reviews["review_list"] = review_list
+                product_record["reviews"] = reviews
+                with open("output.json", "a") as outfile:
+                    json.dump(product_record, outfile)
                 
-    #review_data = {"review_data": review_data}
-    #return json.dumps(review_data)
 
 
 
