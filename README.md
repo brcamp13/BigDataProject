@@ -2,6 +2,7 @@
 
 
 To Do:
-  - Add functionality for review processing
+  - Fix next(f) bug
   - Prevent category ID's from including ']'
-  - Store JSON output somewhere?
+  - Comment code, it is hard to look at
+  - Eliminate stray '\n's
