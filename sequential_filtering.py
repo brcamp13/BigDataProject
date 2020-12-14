@@ -16,12 +16,13 @@ def find_item(data, id):
 				return json.loads(line)
 
 #Make dictionary of "Similar" items by ASIN code
-def amazon_similar(item):
+def amazon_simila
 	amazon_weight = 5
 	similar_items = {}
 	for ASIN in item["similar"]:
 		similar_items[ASIN] = amazon_weight
 	return similar_items
+
 
 #Return set of categories belonging to an item
 def	get_categories(item):
@@ -69,7 +70,7 @@ if __name__ == "__main__":
 	print(datetime.datetime.now())
 	print("Input recent product ASIN")
 	item_ASIN = get_item()
-	
+
 	json_data = open("output.json", "r")
 	item = find_item(json_data, item_ASIN)
 	similar_items = amazon_similar(item)
